@@ -346,13 +346,16 @@
         displayNextQuestion();
       });
 
-      // Show or hide back button based on current section
+      // Show "Back to Levels" button in question and review sections
       function showBackToLevelsButton() {
-        backToLevelsButton.style.display = "inline-block";
+        if (levelSelection.style.display === "none") {
+          backToLevelsButton.style.display = "inline-block"; // Show button
+        }
       }
 
+      // Hide the "Back to Levels" button when in the level selection page
       function hideBackToLevelsButton() {
-        backToLevelsButton.style.display = "none";
+        backToLevelsButton.style.display = "none"; // Hide button
       }
 
       // Back to Levels button functionality
@@ -373,6 +376,9 @@
         answeredQuestions = 0;
         progressBarFilled.style.width = "0%";
         reviewList.innerHTML = "";
+
+        // Hide the Back to Levels button when on the level page
+        hideBackToLevelsButton();
       });
     </script>
   </body>
