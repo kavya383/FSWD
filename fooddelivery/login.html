@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Register</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to Food Delivery App</h1>
+    </header>
+
+    <div id="form-container">
+        <div id="login-form">
+            <h2>Login</h2>
+            <form>
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" required>
+                <button type="submit">Login</button>
+                <p>Don't have an account? <a href="#" onclick="toggleForms()">Register here</a></p>
+            </form>
+        </div>
+
+        <div id="registration-form" style="display: none;">
+            <h2>Register</h2>
+            <form>
+                <label for="reg-name">Name:</label>
+                <input type="text" id="reg-name" required>
+                <label for="reg-email">Email:</label>
+                <input type="email" id="reg-email" required>
+                <label for="reg-password">Password:</label>
+                <input type="password" id="reg-password" required>
+                <button type="submit">Register</button>
+                <p>Already have an account? <a href="#" onclick="toggleForms()">Login here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mock user data for demonstration
+        const users = [
+            { name: "John Doe", email: "user@example.com", password: "password123" },
+            { name: "Jane Smith", email: "jane@example.com", password: "mypassword" }
+        ];
+
+        // Handle login form submission
+        document.getElementById("login-form").querySelector("form").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent form submission
+
+            // Get user input
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+
+            // Perform login validation
+            const user = users.find(user => user.email === email && user.password === password);
+            
+            if (user) {
+                alert(`Login successful! Welcome, ${user.name}`);
+                // Here you can store user session data (e.g., using local storage)
+                localStorage.setItem('loggedInUser', JSON.stringify(user)); // Save user data to localStorage
+                window.location.href = "index.html"; // Redirect to home page
+            } else {
+                alert("Invalid email or password.");
+            }
+        });
+
+        // Handle registration form submission
+        document.getElementById("registration-form").querySelector("form").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent form submission
+
+            // Get user input
+            const name = document.getElementById("reg-name").value;
+            const email = document.getElementById("reg-email").value;
+            const password = document.getElementById("reg-password").value;
+
+            // Check if the email is already registered
+            const existingUser = users.find(user => user.email === email);
+            
+            if (existingUser) {
+                alert("Email already registered. Please use a different email.");
+            } else {
+                // Add new user to the mock database
+                users.push({ name, email, password });
+                alert(`Registration successful! Welcome, ${name}`);
+                
+                // Store user data to localStorage (optional)
+                localStorage.setItem('loggedInUser', JSON.stringify({ name, email })); // Save user data to localStorage
+
+                // Redirect to index.html after registration
+                window.location.href = "index.html"; // Navigate to the home page
+            }
+        });
+
+        // Toggle between login and registration forms
+        function toggleForms() {
+            const loginForm = document.getElementById("login-form");
+            const registrationForm = document.getElementById("registration-form");
+
+            if (loginForm.style.display === "none") {
+                loginForm.style.display = "block";
+                registrationForm.style.display = "none";
+            } else {
+                loginForm.style.display = "none";
+                registrationForm.style.display = "block";
+            }
+        }
+    </script>
+
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        /* Form Container Styling */
+        #form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            margin-top: 10px;
+        }
+
+        a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</body>
+</html>
