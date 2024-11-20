@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Gourmet Express</title>
+    <!-- Stylish name -->
+  </head>
+  <body>
+    <header>
+      <h1>Gourmet Express</h1>
+      <!-- Stylish name -->
+    </header>
 
+    <!-- List of Restaurants -->
+    <section id="restaurant-list">
+      <h2>Select a Restaurant</h2>
+      <div class="restaurant-card" onclick="loadMenu('Italian Bistro')">
+        <img src="images/italian_bistro.jpg" alt="Presto Pesto" />
+        <h3>Presto Pesto</h3>
+        <p>Specialty: Authentic Italian cuisine with a twist.</p>
+        <!-- Description -->
+        <button class="btn">Select Restaurant</button>
+      </div>
+      <div class="restaurant-card" onclick="loadMenu('Sushi Palace')">
+        <img src="images/sushi_palace.jpg" alt="Sushi Planet" />
+        <h3>Sushi Planet</h3>
+        <p>Specialty: Fresh sushi and Japanese delicacies.</p>
+        <!-- Description -->
+        <button class="btn">Select Restaurant</button>
+      </div>
+      <div class="restaurant-card" onclick="loadMenu('Taco Haven')">
+        <img src="images/taco_haven.jpg" alt="Taco Bros" />
+        <h3>Taco Bros</h3>
+        <p>Specialty: Flavorful tacos and burritos.</p>
+        <!-- Description -->
+        <button class="btn">Select Restaurant</button>
+      </div>
+      <div class="restaurant-card" onclick="loadMenu('Indian Spice')">
+        <img src="images/indian_spice.jpg" alt="Indian Spice" />
+        <h3>Indian Spice</h3>
+        <p>Specialty: Rich and aromatic Indian cuisine.</p>
+        <!-- Description -->
+        <button class="btn">Select Restaurant</button>
+      </div>
+    </section>
+
+    <!-- Menu Section (Hidden initially) -->
+    <section id="restaurant-menu" style="display: none">
+      <h2 id="restaurant-name">Menu</h2>
+      <div id="menu-items"></div>
+      <button class="btn" onclick="goToCart()">View Cart</button>
+    </section>
+
+    <script src="app.js"></script>
+  </body>
+</html>
