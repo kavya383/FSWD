@@ -1,1 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Billing Information</title>
+</head>
+<body>
+    <header>
+        <h1>Billing Information</h1>
+    </header>
 
+    <section>
+        <div id="cart-items" class="cart-items"></div>
+        <h3 id="total-amount">Total: $0</h3>
+
+        <div class="billing-info">
+            <h2>Delivery Information</h2>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Enter your name" />
+            </div>
+            <div>
+                <label for="address">Address:</label>
+                <input type="text" id="address" placeholder="Enter your address" />
+            </div>
+            <div>
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" placeholder="Enter your phone number" />
+            </div>
+
+            <h2>Payment Method</h2>
+            <div>
+                <label>
+                    <input type="radio" name="payment" value="cash" checked />
+                    Cash on Delivery
+                </label>
+                <label>
+                    <input type="radio" name="payment" value="online" onclick="togglePaymentOptions()" />
+                    Online Payment
+                </label>
+            </div>
+
+            <div id="online-payment-options" style="display: none;">
+                <label for="payment-method">Select Payment Method:</label>
+                <select id="payment-method">
+                    <option value="gpay">GPay</option>
+                    <option value="paytm">Paytm</option>
+                </select>
+                <div>
+                    <label for="payment-number">Payment Number:</label>
+                    <input type="text" id="payment-number" placeholder="Enter payment number" />
+                </div>
+            </div>
+
+            <h2>Delivery Charges</h2>
+            <div>
+                <label for="delivery-charge">Delivery Charge:</label>
+                <span id="delivery-charge">$5</span>
+            </div>
+        </div>
+
+        <button class="btn" onclick="checkout()">Proceed to Checkout</button>
+
+        <!-- New Section for Checkout Message -->
+        <div id="checkout-message" class="checkout-message" style="display: none;"></div>
+    </section>
+
+    <script>
+        // Mock cart items (you can replace this with your own logic to fetch items)
+        let cartItems = [
+            { itemName: "Butter Chicken", price: 12, quantity: 1, img: "images/butter_chicken.jpg" },
+            { itemName: "Biryani", price: 15, quantity: 1, img: "images/biryani.jpg" },
+            { itemName: "Samosa", price: 5, quantity: 1, img: "images/samosa.jpg" }
+        ];
+
+        const cartDiv = document.getElementById("cart-items");
+        const deliveryCharge = 5; // Delivery charge amount
+        let total = 0;
+
+        function updateCart() {
+            cartDiv.innerHTML = ""; // Clear previous items
+            total = 0; // Reset total
+
+            cartItems.forEach((item) => {
+                const itemDiv = document.createElement("div");
+                itemDiv.className = "cart-item";
+
+                const itemTotalPrice = item.price * item.quantity; // Calculate total price for the item
+                itemDiv.innerHTML = `
+                    <div class="item-details">
+                        <img src="${item.img}" alt="${item.itemName}" class="item-image">
+                        <div>
+                            ${item.itemName} - $${item.price} x 
+                            <button onclick="changeQuantity('${item.itemName}', -1)">-</button>
+                            <span id="${item.itemName}-quantity">${item.quantity}</span>
+                            <button onclick="changeQuantity('${item.itemName}', 1)">+</button>
+                        </div>
+                        <div>Subtotal: $<span id="${item.itemName}-subtotal">${itemTotalPrice}</span></div>
+                    </div>
+                `;
+                cartDiv.appendChild(itemDiv);
+                total += itemTotalPrice; // Add to total
+            });
+
+            total += deliveryCharge; // Add delivery charge to total
+            document.getElementById("total-amount").textContent = `Total: $${total}`;
+        }
+
+        function changeQuantity(itemName, change) {
+            const item = cartItems.find(i => i.itemName === itemName);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity < 1) item.quantity = 1; // Minimum quantity of 1
+                updateCart(); // Refresh cart display
+            }
+        }
+
+        function togglePaymentOptions() {
+            const onlinePaymentOptions = document.getElementById("online-payment-options");
+            onlinePaymentOptions.style.display = onlinePaymentOptions.style.display === "none" ? "block" : "none";
+        }
+
+        function checkout() {
+            if (cartItems.length === 0) {
+                alert("Your cart is empty. Please add items before proceeding to checkout.");
+                return;
+            }
+
+            const name = document.getElementById("name").value;
+            const address = document.getElementById("address").value;
+            const phone = document.getElementById("phone").value;
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            const paymentNumber = paymentMethod === 'online' ? document.getElementById("payment-number").value : 'N/A';
+
+            if (!name || !address || !phone || (paymentMethod === 'online' && !paymentNumber)) {
+                alert("Please fill in all the details.");
+                return;
+            }
+
+            // Create a summary of ordered items
+            let itemsOrdered = cartItems.map(item => `${item.itemName} - $${item.price} (Qty: ${item.quantity})`).join("<br>");
+            let itemsTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let finalTotal = itemsTotal + deliveryCharge; // Add delivery charge
+
+            // Prompt for rating after checkout
+            const rating = prompt("Please rate your experience (1-5):");
+            if (rating < 1 || rating > 5 || isNaN(rating)) {
+                alert("Please provide a valid rating.");
+            } else {
+                // Display the checkout summary in the new section
+                const checkoutMessageDiv = document.getElementById("checkout-message");
+                checkoutMessageDiv.style.display = "block";
+                checkoutMessageDiv.innerHTML = `
+                    <h2>Checkout Successful!</h2>
+                    <p><strong>Ordered Items:</strong><br>${itemsOrdered}</p>
+                    <p><strong>Total:</strong> $${finalTotal}</p>
+                    <p><strong>Name:</strong> ${name}</p>
+                    <p><strong>Address:</strong> ${address}</p>
+                    <p><strong>Phone:</strong> ${phone}</p>
+                    <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+                    <p><strong>Payment Number:</strong> ${paymentNumber}</p>
+                    <p><strong>Rating:</strong> ${rating}</p>
+                `;
+            }
+
+            // Clear the cart
+            cartItems = [];
+            updateCart(); // Reset cart display
+            // Optionally hide the billing info
+            document.querySelector(".billing-info").style.display = "none";
+        }
+
+        updateCart(); // Initial cart display
+    </script>
+</body>
+</html>
