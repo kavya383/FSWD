@@ -1,1 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>College Portfolio</title>
+    <style>
+      /* General Reset */
+      body,
+      h1,
+      h2,
+      p,
+      ul,
+      li,
+      a {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        list-style: none;
+        box-sizing: border-box;
+      }
 
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #e9f5f5; /* Light teal background */
+        color: #333;
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* Header Styles */
+      header {
+        background: #00796b; /* Teal */
+        color: white;
+        padding: 20px;
+        width: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      header .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header h1 {
+        font-size: 2.2em;
+      }
+
+      nav ul {
+        display: flex;
+      }
+
+      nav ul li {
+        margin-left: 20px;
+      }
+
+      nav ul li a {
+        color: white;
+        font-size: 1em;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      nav ul li a:hover {
+        background-color: #004d40; /* Darker teal */
+        color: #fff;
+      }
+
+      /* Main Content Styles */
+      main {
+        flex: 1; /* Takes up remaining space */
+        max-width: 1200px;
+        margin: 80px auto 20px; /* Adjusted margin-top to account for fixed header */
+        padding: 20px;
+      }
+
+      /* Section Styles */
+      section {
+        display: none;
+      }
+
+      section.active {
+        display: block;
+        background: white;
+        padding: 40px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      section h2 {
+        font-size: 2.5em;
+        color: #00796b; /* Teal */
+        margin-bottom: 20px;
+        border-bottom: 3px solid #ff5722; /* Deep orange */
+        padding-bottom: 10px;
+      }
+
+      /* Skills Section */
+      #skills ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0;
+      }
+
+      #skills ul li {
+        background: #00796b; /* Teal */
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        flex: 1 1 30%;
+        text-align: center;
+        transition: background-color 0.3s;
+      }
+
+      #skills ul li:hover {
+        background: #004d40; /* Darker teal */
+      }
+
+      /* Project Section */
+      .project-item {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #f1f8e9; /* Light lime green */
+        border-left: 4px solid #00796b; /* Teal */
+        border-radius: 8px;
+        transition: background-color 0.3s, border-left-color 0.3s;
+      }
+
+      .project-item:hover {
+        background-color: #d0e8e4; /* Light teal */
+        border-left-color: #004d40; /* Darker teal */
+      }
+
+      /* Awards Section */
+      #awards ul {
+        padding: 0;
+      }
+
+      #awards ul li {
+        background: #f0f4c3; /* Light yellow */
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      #awards ul li:hover {
+        background: #e6ee9c; /* Lighter yellow */
+      }
+
+      /* Footer Styles */
+      footer {
+        background: #00796b; /* Teal */
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: auto; /* Pushes footer to the bottom */
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+        width: 100%;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 1.8em;
+        }
+
+        nav ul {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        nav ul li {
+          margin: 10px 0;
+        }
+
+        #skills ul li {
+          flex: 1 1 45%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        #skills ul li {
+          flex: 1 1 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Kavya</h1>
+        <nav>
+          <ul>
+            <li><a href="#" data-target="home">Home</a></li>
+            <li><a href="#" data-target="about">About</a></li>
+            <li><a href="#" data-target="education">Education</a></li>
+            <li><a href="#" data-target="projects">Projects</a></li>
+            <li><a href="#" data-target="awards">Awards</a></li>
+            <li><a href="#" data-target="contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="active">
+        <div class="container">
+          <h2>Welcome to My College Portfolio</h2>
+          <p>
+            Hello! I'm Kavya, a college student passionate about computer
+            science and software development. Explore my achievements,
+            activities, and projects to learn more about my journey and
+            aspirations.
+          </p>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="container">
+          <h2>About Me</h2>
+          <p>
+            I’m Kavya, an Information Technology student at Anna University. I
+            am passionate about technology, programming, and problem-solving. I
+            am committed to leveraging my skills to contribute to innovative
+            projects and make a positive impact in the tech community.
+          </p>
+        </div>
+      </section>
+
+      <section id="education">
+        <div class="container">
+          <h2>Education</h2>
+          <p>
+            <strong>Anna University</strong> - Bachelor of Technology in
+            Information Technology (Expected 2026)
+          </p>
+          <p>
+            <strong>Relevant Courses:</strong> Data Structures, Algorithms, Web
+            Development, Database Systems, Machine Learning
+          </p>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="container">
+          <h2>Skills</h2>
+          <ul>
+            <li>Python</li>
+            <li>HTML/CSS</li>
+            <li>JavaScript</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="container">
+          <h2>Projects</h2>
+          <div class="project-item">
+            <h3>Campus Event Management System</h3>
+            <p>
+              <strong>Description:</strong> Developed a web-based application to
+              manage campus events, including event scheduling, registration,
+              and notifications. Utilized HTML, CSS, and JavaScript.
+            </p>
+          </div>
+          <div class="project-item">
+            <h3>Student Portfolio Website</h3>
+            <p>
+              <strong>Description:</strong> Created a personal portfolio website
+              to showcase academic projects, achievements, and skills.
+              Implemented with React and Node.js.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="awards">
+        <div class="container">
+          <h2>Awards and Recognitions</h2>
+          <ul>
+            <li><strong>Best Paper Award</strong> - Tech Conference (2023)</li>
+            <li>
+              <strong>Outstanding Volunteer</strong> - Student Tech Association
+              (2022)
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container">
+          <h2>Contact Me</h2>
+          <p>
+            If you’d like to get in touch, feel free to reach out via email or
+            connect with me on LinkedIn!
+          </p>
+          <p><strong>Email:</strong> kavyastudent@gmail.com</p>
+          <p>
+            <strong>LinkedIn:</strong>
+            <a href="https://linkedin.com/in/kavya" target="_blank"
+              >linkedin.com/in/kavya</a
+            >
+          </p>
+          <p>
+            <strong>Website:</strong>
+            <a href="https://www.kavya.com" target="_blank">www.kavya.com</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navLinks = document.querySelectorAll("nav a");
+        const sections = document.querySelectorAll("main section");
+
+        // Initially hide all sections except the "Home" section
+        sections.forEach((section) => {
+          section.style.display = "none";
+        });
+        document.getElementById("home").style.display = "block"; // Show "Home" section initially
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = e.target.getAttribute("data-target");
+
+            // Hide all sections
+            sections.forEach((section) => {
+              section.classList.remove("active");
+              section.style.display = "none";
+            });
+
+            // Show the target section
+            document.getElementById(targetId).classList.add("active");
+            document.getElementById(targetId).style.display = "block";
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
