@@ -1,0 +1,231 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Body */
+body {
+  background: linear-gradient(
+    135deg,
+    #a2c2f4,
+    #c1e0f8
+  ); /* Light cool gradient */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #333;
+}
+
+/* Container */
+.container {
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.8); /* Slightly translucent background */
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Header */
+h1 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #4b6d93;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input,
+select,
+textarea {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.6); /* Light background for inputs */
+  color: #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 4px 15px rgba(100, 150, 255, 0.3); /* Soft glow on focus */
+  transform: scale(1.02);
+}
+
+/* Buttons */
+button {
+  padding: 14px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: linear-gradient(to right, #6fa3f7, #3e8bc5); /* Cool gradient */
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(
+    to right,
+    #5a8be0,
+    #3275a8
+  ); /* Darker gradient on hover */
+  transform: scale(1.05);
+}
+
+button:disabled {
+  background: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: not-allowed;
+}
+
+/* Hidden Class */
+.hidden {
+  display: none;
+}
+
+/* Employee Details */
+#employeeDetailsSection p {
+  font-size: 16px;
+  color: #4f5b69;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+#employeeDetailsSection button {
+  margin-top: 20px;
+  background: linear-gradient(to right, #57c4a8, #4fae9e); /* Green gradient */
+}
+
+#employeeDetailsSection button:hover {
+  background: linear-gradient(to right, #44b090, #389f7f);
+}
+
+/* Manager Section */
+#managerSection table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#managerSection table th,
+#managerSection table td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+#managerSection table th {
+  background: linear-gradient(to right, #6fa3f7, #3e8bc5);
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+#managerSection table td button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #f7b7a3, #f39c77);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#managerSection table td button:hover {
+  background: linear-gradient(to right, #e09373, #e2a77f);
+  transform: scale(1.1);
+}
+
+/* Apply Leave Section */
+#leaveApplicationSection form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+/* Logout Button */
+#logoutEmployee,
+#managerSection button {
+  background: linear-gradient(to right, #e74c3c, #c0392b); /* Red gradient */
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+#logoutEmployee:hover,
+#managerSection button:hover {
+  background: linear-gradient(to right, #d44d39, #a93226);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  form {
+    gap: 15px;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  #managerSection table th,
+  #managerSection table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  #managerSection table th,
+  #managerSection table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
