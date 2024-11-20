@@ -7,20 +7,17 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('bg.jpg'); /* Ensure bg.jpg is uploaded */
+            background-image: url('bg.jpg');
             background-repeat: no-repeat;
             background-position: center;
-            background-size: cover; /* Cover the entire viewport */
-            position: relative; /* Position for overlay */
-            color: #f0f0f0; /* Light text color for contrast */
+            background-size: cover;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
         }
 
-        /* Dark overlay */
         body::before {
             content: '';
             position: absolute;
@@ -28,66 +25,39 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(30, 30, 30, 0.7); /* Dark overlay with transparency */
-            z-index: 1; /* Layer it below the text */
+            background-color: rgba(30, 30, 30, 0.7);
+            z-index: 1;
         }
 
         h1 {
             color: white;
-            font-size: 40px;
-            margin: 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            font-size: 36px;
             text-align: center;
             background-color: #1d5361;
-            z-index: 1000;
+            margin: 0;
             padding: 20px;
-            box-sizing: border-box;
+            z-index: 2;
+            position: relative;
         }
 
         .content {
-            margin-top: 80px; /* Add margin to push content below the fixed heading */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: calc(100vh - 80px); /* Adjust height to fit the viewport minus the heading */
+            flex-grow: 1;
+            z-index: 2;
+            position: relative;
             text-align: center;
-            z-index: 2; /* Ensure content is above the overlay */
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            margin: 15px 0;
-            font-size: 24px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #e6dfdf; /* Light color for links */
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        a:hover {
-            color: #1c1c1d; /* Change color on hover */
         }
 
         .button {
             display: inline-block;
             padding: 10px 20px;
-            margin: 15px 0;
-            font-size: 18px;
+            margin: 10px;
+            font-size: 16px;
             color: white;
             background-color: #a05a0b;
-            text-align: center;
             text-decoration: none;
             border-radius: 5px;
             border: 2px solid #a05a0b;
@@ -98,21 +68,35 @@
             background-color: #2fa0bd;
             border-color: #2fa0bd;
         }
+
+        /* Desktop adjustments */
+        @media (min-width: 768px) {
+            .content {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .button {
+                flex: 1 1 auto;
+                max-width: 200px;
+                margin: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>FULL STACK WEB DEVELOPMENT LAB EXPERIMENTS</h1>
     <div class="content">
-        <ul>
-            <li><a class="button" href="https://kavya383.github.io/FSWD/portfolio/port.html" target="_blank">Portfolio</a></li>
-            <li><a class="button" href="https://kavya383.github.io/FSWD/todolist/login.html" target="_blank">To-Do List</a></li>
-            <li><a class="button" href="https://kavya383.github.io/FSWD/microblog/index.html" target="_blank">Microblogging Application</a></li>
-            <li><a class="button" href="https://kavya383.github.io/FSWD/fooddelivery/login.html" target="_blank">Food Delivery Website</a></li>
-            <li><a class="button" href="https://kavya383.github.io/FSWD/classified/login.html" target="_blank">Used Products Website</a></li>
-            <li><a class="button" href="https://kavya383.github.io/FSWD/leavemanagement/index.html" target="_blank">Leave Management System</a></li>
-            <li><a class="button" href="https://kavya383.github.io/FSWD/dashboard/index.html" target="_blank">  Project Dashboard</a></li>
-            <li><a class="button" href="https://kavya383.github.io/FSWD/onlinesurvey/index.html" target="_blank"> Online Survey Application  </a></li>
-        </ul>
+        <a class="button" href="https://kavya383.github.io/FSWD/portfolio/port.html" target="_blank">Portfolio</a>
+        <a class="button" href="https://kavya383.github.io/FSWD/todolist/login.html" target="_blank">To-Do List</a>
+        <a class="button" href="https://kavya383.github.io/FSWD/microblog/index.html" target="_blank">Microblogging Application</a>
+        <a class="button" href="https://kavya383.github.io/FSWD/fooddelivery/login.html" target="_blank">Food Delivery Website</a>
+        <a class="button" href="https://kavya383.github.io/FSWD/classified/login.html" target="_blank">Used Products Website</a>
+        <a class="button" href="https://kavya383.github.io/FSWD/leavemanagement/index.html" target="_blank">Leave Management System</a>
+        <a class="button" href="https://kavya383.github.io/FSWD/dashboard/index.html" target="_blank">Project Dashboard</a>
+        <a class="button" href="https://kavya383.github.io/FSWD/onlinesurvey/index.html" target="_blank">Online Survey Application</a>
     </div>
 </body>
 </html>
