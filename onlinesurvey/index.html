@@ -92,6 +92,23 @@
         background-color: #f1f1f1;
         color: black;
       }
+      #back-to-levels-btn {
+        display: none;
+        background-color: #f0ad4e; /* Orange color */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      #back-to-levels-btn:hover {
+        background-color: #ec971f; /* Darker orange color on hover */
+      }
+
       .next-btn {
         background-color: #28a745;
         color: white;
@@ -109,6 +126,13 @@
         display: none;
         margin-top: 20px;
         text-align: center;
+      }
+      .btn.previous-btn {
+        background-color: #f1f1f1;
+        color: black;
+      }
+      #back-to-levels-btn {
+        display: none;
       }
     </style>
   </head>
@@ -147,6 +171,9 @@
         </button>
         <button id="edit-btn" class="btn previous-btn">Edit Answers</button>
       </div>
+      <button id="back-to-levels-btn" class="btn previous-btn">
+        Back to Levels
+      </button>
     </div>
 
     <script>
@@ -187,6 +214,7 @@
       const reviewList = document.getElementById("review-list");
       const finalSubmitButton = document.getElementById("final-submit-btn");
       const editButton = document.getElementById("edit-btn");
+      const backToLevelsButton = document.getElementById("back-to-levels-btn");
 
       let currentLevel = "";
       let questionPool = [];
@@ -204,6 +232,7 @@
           ); // Shuffle questions
           levelSelection.style.display = "none";
           questionSection.style.display = "block";
+          showBackToLevelsButton(); // Show the back button
           displayNextQuestion();
         });
       });
@@ -251,113 +280,99 @@
           return;
         }
 
-        // Save answer immediately when Next is clicked
+        // Save answer immediately
         responses[currentQuestionIndex] = {
           question: questionPool[currentQuestionIndex],
-          answer,
+          answer: answer,
         };
+
         answeredQuestions++;
         currentQuestionIndex++;
-
-        if (answeredQuestions < requiredAnswers) {
-          displayNextQuestion();
-        } else {
-          // Show the Submit button once all questions are answered
-          submitButton.style.display = "inline-block";
-          nextButton.style.display = "none"; // Hide Next button after last question
-        }
+        displayNextQuestion();
       });
 
       // Handle Submit button
       submitButton.addEventListener("click", () => {
         const answer = answerInput.value.trim();
         if (answer === "") {
-          alert("Answer cannot be empty. Please provide an answer.");
+          alert("Please provide an answer before submitting.");
           return;
         }
 
-        // Save the final answer when Submit is clicked
+        // Save answer
         responses[currentQuestionIndex] = {
           question: questionPool[currentQuestionIndex],
-          answer,
+          answer: answer,
         };
+
         answeredQuestions++;
         showReview();
       });
 
-      // Show final review
+      // Show review section
       function showReview() {
         questionSection.style.display = "none";
         reviewSection.style.display = "block";
+        showBackToLevelsButton(); // Show the back button in the review section
         reviewList.innerHTML = responses
           .map(
             (response, index) => `
-                <li>
-                    <strong>Question ${index + 1}: </strong>${
-              response.question
-            }<br>
-                    <strong>Your Answer: </strong>
-                    <textarea id="review-answer-${index}" rows="4">${
+              <li>
+                <strong>Question ${index + 1}: </strong>${response.question}<br>
+                <strong>Your Answer: </strong>
+                <textarea id="review-answer-${index}" rows="4">${
               response.answer
             }</textarea>
-                </li>
-            `
+              </li>`
           )
           .join("");
       }
 
-      // Handle final submit
+      // Submit final answers
       finalSubmitButton.addEventListener("click", () => {
-        const finalResponses = [];
-        let isValid = true;
-
-        // Collect and validate answers before final submission
-        responses.forEach((response, index) => {
-          const answerText = document
-            .getElementById(`review-answer-${index}`)
-            .value.trim();
-          if (answerText === "") {
-            isValid = false;
-            alert(
-              `Answer for Question ${
-                index + 1
-              } cannot be empty. Please provide an answer.`
-            );
-            return;
-          }
-          finalResponses.push({
-            question: response.question,
-            answer: answerText,
-          });
-        });
-
-        if (isValid) {
-          resultsSection.style.display = "block";
-          resultsSection.innerHTML = `
-                    <h3>Your Responses:</h3>
-                    <ul>
-                        ${finalResponses
-                          .map(
-                            (r) =>
-                              `<li><strong>${r.question}</strong>: ${r.answer}</li>`
-                          )
-                          .join("")}
-                    </ul>
-                `;
-          reviewSection.style.display = "none"; // Hide the review section
-        }
+        reviewSection.style.display = "none";
+        resultsSection.style.display = "block";
+        resultsSection.innerHTML =
+          "<h3>Thank you for completing the survey!</h3>";
+        hideBackToLevelsButton();
       });
 
-      // Allow user to edit answers before final submission
+      // Edit answers
       editButton.addEventListener("click", () => {
         reviewSection.style.display = "none";
         questionSection.style.display = "block";
         currentQuestionIndex = 0;
-        responses.forEach((response, index) => {
-          document.getElementById(`review-answer-${index}`).value =
-            response.answer;
-        });
+        responses.length = 0;
         displayNextQuestion();
+      });
+
+      // Show or hide back button based on current section
+      function showBackToLevelsButton() {
+        backToLevelsButton.style.display = "inline-block";
+      }
+
+      function hideBackToLevelsButton() {
+        backToLevelsButton.style.display = "none";
+      }
+
+      // Back to Levels button functionality
+      backToLevelsButton.addEventListener("click", () => {
+        // Hide current section
+        questionSection.style.display = "none";
+        reviewSection.style.display = "none";
+        resultsSection.style.display = "none";
+
+        // Show level selection
+        levelSelection.style.display = "block";
+
+        // Reset all data
+        currentLevel = "";
+        questionPool = [];
+        responses.length = 0;
+        currentQuestionIndex = 0;
+        answeredQuestions = 0;
+        progressBarFilled.style.width = "0%";
+        reviewList.innerHTML = "";
       });
     </script>
   </body>
